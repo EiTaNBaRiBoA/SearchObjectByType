@@ -1,4 +1,4 @@
-## SearchByNode 🔍
+## SearchObjectByType 🔍
 
 This Godot tool provides a simple and efficient way to search and retrieve nodes within your scene tree (including within sub-viewports or specific parent nodes) based on their type and visibility. It's particularly useful for finding specific nodes without manually traversing the hierarchy.
 
@@ -10,14 +10,6 @@ This Godot tool provides a simple and efficient way to search and retrieve nodes
 - Ability to limit the search to a specific sub-viewport.
 - Find nodes within a specific parent node.
 
-### Installation
-
-1. **Download/Clone the GitHub repo:** Get the `SearchByNode.gd` script from the repository.
-2. **Enable Autoload:** 
-   - In your Godot project, go to **Project -> Project Settings -> AutoLoad**.
-   - Click "Add" and select the `SearchByNode.gd` script.
-   - Give it a name (e.g., "SearchByNode") in the AutoLoad settings. 
-3. **Use `SearchByNode` in your scripts:** Now you can access the `SearchByNode` functions directly in any of your project's scripts.
 
 ### Usage
 
@@ -25,24 +17,24 @@ This Godot tool provides a simple and efficient way to search and retrieve nodes
 
 ```gdscript
 # Find the first active node of type ClassB
-var objB_one : ClassB = SearchByNode.findNodeByType(ClassB)
+var objB_one : ClassB = SearchObjectByType.findNodeByType(ClassB)
 if objB_one:
 	print(objB_one.nameObj)
 
 # Find all active nodes of type ClassA
 var classA_array : Array[ClassA]
-classA_array.assign(SearchByNode.findNodesByType(ClassA))
+classA_array.assign(SearchObjectByType.findNodesByType(ClassA))
 for objA_all : ClassA in classA_array:
 	print(objA_all.nameObj)
 
 # Find the first active ClassA node within 'self' node
-var objA_innerOne : ClassA = SearchByNode.findInnerNodeInNode(ClassA,self)
+var objA_innerOne : ClassA = SearchObjectByType.findInnerNodeInNode(ClassA,self)
 if objA_innerOne:
 	print(objA_innerOne.nameObj)
 
 # Find all active ClassA nodes within 'self' node
 var innerClassA_array : Array[ClassA]
-innerClassA_array.assign(SearchByNode.findInnerNodesInNode(ClassA,self))
+innerClassA_array.assign(SearchObjectByType.findInnerNodesInNode(ClassA,self))
 for objA_inner_all : ClassA in innerClassA_array:
 	print(objA_inner_all.nameObj)
 ```
@@ -51,7 +43,7 @@ for objA_inner_all : ClassA in innerClassA_array:
 
 ```gdscript
 # Get the main scene of the viewport that 'self' belongs to
-var main_scene = SearchByNode.get_main_scene_of_viewport(self) 
+var main_scene = SearchObjectByType.get_main_scene_of_viewport(self) 
 print(main_scene.name)
 ```
 
@@ -68,20 +60,20 @@ print(main_scene.name)
 
 ```gdscript
 # Find the "StartButton" button
-var start_button : Button = SearchByNode.findNodeByType(Button, true, null)
+var start_button : Button = SearchObjectByType.findNodeByType(Button, true, null)
 ```
 
 **2. Finding all enemies in a level:**
 
 ```gdscript
 # Find all active "Enemy" nodes within the "Level" sub-viewport
-for enemy : Enemy in SearchByNode.findNodesByType(Enemy,true,level):
+for enemy : Enemy in SearchObjectByType.findNodesByType(Enemy,true,level):
 	print(enemy.name)
 ```
 ###  Additional Examples
 
 For more detailed examples and practical use cases, check out the **example scenes** included in this repository.
-You can load and run these scenes in Godot to see `SearchByNode` in action. 
+You can load and run these scenes in Godot to see `SearchObjectByType` in action. 
 Feel free to experiment and adapt the examples to fit your specific needs.
 
 ### Notes
