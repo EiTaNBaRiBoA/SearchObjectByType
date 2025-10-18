@@ -1,0 +1,51 @@
+[gd_scene load_steps=4 format=3 uid="uid://cysdm8cjpgygq"]
+
+[ext_resource type="Script" uid="uid://bfq46ej7d3eau" path="res://addons/SearchObjectByType/addons/SearchObjectByType/Example/Data/PlayerExample.gd" id="1_ewwt8"]
+[ext_resource type="Script" uid="uid://ii3vw3si1w6q" path="res://addons/SearchObjectByType/addons/SearchObjectByType/Example/Data/EnemyExample.gd" id="2_qur3h"]
+[ext_resource type="Script" uid="uid://dmj56fefrrjbe" path="res://addons/SearchObjectByType/addons/SearchObjectByType/Example/Example.gd" id="3_q1dfj"]
+
+[node name="MainScene" type="Node2D"]
+
+[node name="Player1" type="Node2D" parent="."]
+script = ExtResource("1_ewwt8")
+
+[node name="Group" type="Node2D" parent="."]
+
+[node name="Player7" type="Node2D" parent="Group"]
+script = ExtResource("1_ewwt8")
+
+[node name="Player4" type="Node2D" parent="Group"]
+script = ExtResource("1_ewwt8")
+
+[node name="Player2 Not visible" type="Node2D" parent="."]
+visible = false
+script = ExtResource("1_ewwt8")
+
+[node name="Enemy3" type="Node2D" parent="."]
+script = ExtResource("2_qur3h")
+
+[node name="Enemy2" type="Node2D" parent="."]
+script = ExtResource("2_qur3h")
+health = 20
+
+[node name="Enemy1 Not visible" type="Node2D" parent="."]
+visible = false
+script = ExtResource("2_qur3h")
+
+[node name="SomeObj" type="Node3D" parent="."]
+
+[node name="Example" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("3_q1dfj")
+
+[node name="Player5" type="Node2D" parent="Example"]
+script = ExtResource("1_ewwt8")
+
+[node name="Player6" type="Node2D" parent="Example/Player5"]
+script = ExtResource("1_ewwt8")
+
+[node name="Enemy4" type="Node2D" parent="Example/Player5/Player6"]
+script = ExtResource("2_qur3h")
