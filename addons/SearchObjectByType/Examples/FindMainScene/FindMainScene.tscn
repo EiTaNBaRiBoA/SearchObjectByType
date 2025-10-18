@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://b3y3anla8qv17"]
 
-[ext_resource type="Script" path="res://addons/SearchByNode/Examples/FindMainScene/findMainSceneExample.gd" id="1_53184"]
+[ext_resource type="Script" uid="uid://s5u814e2irnl" path="res://addons/SearchObjectByType/addons/SearchObjectByType/Examples/FindMainScene/findMainSceneExample.gd" id="1_53184"]
 
 [node name="MainScene" type="Node2D"]
 

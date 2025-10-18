@@ -1,6 +1,6 @@
-extends Node
+@abstract class_name SearchObjectByType
 
-
+static var all_objects_in_parent : Array[Node] = []
 
 """
 Finds node by a given type and returns it. (can search for an Object like Control,Node or even a Class)
@@ -8,18 +8,18 @@ _active_only = true default, if sets to true than will return only visible objec
 mainSubViewPort = null default, if you want to get objects only inside a subviewport (acting like current scene)
 """
 ## Finds node by a given type and returns it.
-func findNodeByType(_type : Object,_active_only : bool = true, mainScene : Object = null) -> Object:
+static func findNodeByType(_type : Object,_active_only : bool = true, mainScene : Object = null) -> Object:
 	if not _check_cast_class(_type):
 		push_error("Don't send an instantiated or null object ")
 		return null
 	else:
-		var main_scene_node : Object = get_tree().current_scene
+		var main_scene_node : Object = Engine.get_main_loop().get_tree().current_scene
 		if mainScene:
 			main_scene_node = mainScene
 		if main_scene_node:
-			listOfAllNodesInParent.clear()
+			all_objects_in_parent.clear()
 			_findByType(main_scene_node,_type)
-			for child in listOfAllNodesInParent:
+			for child in all_objects_in_parent:
 				if _active_only:
 					if (child as CanvasItem).is_visible_in_tree() == _active_only :
 						return child
@@ -36,19 +36,19 @@ _active_only = true default, if sets to true than will return only visible objec
 mainSubViewPort = null default, if you want to get objects only inside a subviewport (acting like current scene)
 """
 ## Finds all nodes by a given type and returns it.
-func findNodesByType(_type : RefCounted , _active_only : bool = true,mainScene : Object = null) -> Array[Object]:
+static func findNodesByType(_type : RefCounted , _active_only : bool = true,mainScene : Object = null) -> Array[Object]:
 	var listOfAllNodes: Array[Object] = []
 	if not _check_cast_class(_type):
 		push_error("Don't send an instantiated or null object ")
 		return listOfAllNodes
 	else:
-		var main_scene_node : Object = get_tree().current_scene
+		var main_scene_node : Object = Engine.get_main_loop().get_tree().current_scene
 		if mainScene:
 			main_scene_node = mainScene
 		if main_scene_node:
-			listOfAllNodesInParent.clear()
+			all_objects_in_parent.clear()
 			_findByType(main_scene_node,_type)
-			for child in listOfAllNodesInParent:
+			for child in all_objects_in_parent:
 				if _active_only:
 					if (child as CanvasItem).is_visible_in_tree() == _active_only:
 						listOfAllNodes.append(child)
@@ -57,16 +57,16 @@ func findNodesByType(_type : RefCounted , _active_only : bool = true,mainScene :
 	return listOfAllNodes
 
 ## Get Node inside a node like if a character has a rigidbody, it will get it.
-func findInnerNodeInNode(_type : Object, parentObject : Object, _active_only : bool = true) -> Object:
+static func findInnerNodeInNode(_type : Object, parent_object : Object, _active_only : bool = true) -> Object:
 	if not _check_cast_class(_type):
 		push_error("Don't send an instantiated or null object ")
 		return null
-	elif not parentObject:
+	elif not parent_object:
 		print("Parent Object is null")
 	else:
-		listOfAllNodesInParent.clear()
-		_findByType(parentObject,_type)
-		for child in listOfAllNodesInParent:
+		all_objects_in_parent.clear()
+		_findByType(parent_object,_type)
+		for child in all_objects_in_parent:
 			if _active_only:
 				if (child as CanvasItem).is_visible_in_tree() == _active_only:
 					return child
@@ -76,7 +76,7 @@ func findInnerNodeInNode(_type : Object, parentObject : Object, _active_only : b
 
 
 ## Get Nodes inside a node If there are multinodes that needs to be controlled inside a parent
-func findInnerNodesInNode(_type : Object, parentObject : Object , _active_only : bool = true) -> Array[Object]:
+static func findInnerNodesInNode(_type : Object, parentObject : Object , _active_only : bool = true) -> Array[Object]:
 	var listOfAllNodes: Array[Object] = []
 	if not _check_cast_class(_type):
 		push_error("Don't send an instantiated or null object in Type ")
@@ -84,9 +84,9 @@ func findInnerNodesInNode(_type : Object, parentObject : Object , _active_only :
 	elif not parentObject:
 		print("Parent Object is null")
 	else:
-		listOfAllNodesInParent.clear()
+		all_objects_in_parent.clear()
 		_findByType(parentObject,_type)
-		for child in listOfAllNodesInParent:
+		for child in all_objects_in_parent:
 			if _active_only:
 				if (child as CanvasItem).is_visible_in_tree() == _active_only :
 					listOfAllNodes.append(child)
@@ -95,11 +95,10 @@ func findInnerNodesInNode(_type : Object, parentObject : Object , _active_only :
 	return listOfAllNodes
 
 
-var listOfAllNodesInParent : Array[Node] = []
-func _findByType(parent : Node, type) -> void:
+static func _findByType(parent : Node, type) -> void:
 	for child : Node in parent.get_children():
 		if is_instance_of(child, type):
-			listOfAllNodesInParent.append(child)
+			all_objects_in_parent.append(child)
 		if child.get_children().size()>0:
 			_findByType(child,type)
 	return
@@ -109,7 +108,7 @@ When working with several scenes you don't always want to get all objects of all
 but you want to get Object for a specific scene.
 '''
 ##Gets the Main of the current scene instead of going to Tree (Usefull if you use SubViewPorts)
-func get_main_scene_of_viewport(obj : Object):
+static func get_main_scene_of_viewport(obj : Object):
 	if not obj:
 		return null
 	if is_instance_of(obj.get_parent(),Viewport): ## we found the parent that is a viewport so we return the obj
@@ -120,7 +119,7 @@ func get_main_scene_of_viewport(obj : Object):
 
 
 ## Checks cast class
-func _check_cast_class(castClass : Object) -> bool:
+static func _check_cast_class(castClass : Object) -> bool:
 	if typeof(castClass) == Variant.Type.TYPE_NIL:
 		return false
 	var properties: Array = castClass.get_property_list()

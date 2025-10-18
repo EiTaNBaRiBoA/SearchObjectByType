@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://cysdm8cjpgygq"]
 
-[ext_resource type="Script" path="res://addons/SearchByNode/Examples/FindNodeByType/findNodeExample.gd" id="1_42tc7"]
-[ext_resource type="Script" path="res://addons/SearchByNode/Examples/FindNodeByType/ClassA.gd" id="2_ysxnj"]
-[ext_resource type="Script" path="res://addons/SearchByNode/Examples/FindNodeByType/ClassB.gd" id="3_8wveg"]
+[ext_resource type="Script" uid="uid://dmj56fefrrjbe" path="res://addons/SearchObjectByType/addons/SearchObjectByType/Examples/FindNodeByType/findNodeExample.gd" id="1_42tc7"]
+[ext_resource type="Script" uid="uid://bfq46ej7d3eau" path="res://addons/SearchObjectByType/addons/SearchObjectByType/Examples/FindNodeByType/ClassA.gd" id="2_ysxnj"]
+[ext_resource type="Script" uid="uid://ii3vw3si1w6q" path="res://addons/SearchObjectByType/addons/SearchObjectByType/Examples/FindNodeByType/ClassB.gd" id="3_8wveg"]
 
 [node name="MainScene" type="Node2D"]
 
